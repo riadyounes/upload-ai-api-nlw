@@ -1,0 +1,38 @@
+# @name get-prompts
+GET http://localhost:3333/prompts
+
+###
+
+# @name upload
+POST http://localhost:3333/videos
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="audio.mp3"
+Content-Type: audio/mpeg
+
+< ./audio.mp3
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+
+###
+
+# @name create-transctiption
+POST http://localhost:3333/videos/3d8ad41e-bd2b-4d3c-b8b9-1b63113a06c3/transcription
+Content-Type: application/json
+
+{
+  "prompt": "AI, converter, texto para audio"
+}
+
+
+###
+
+# @name generate-ai-completion
+POST http://localhost:3333/ai/complete
+Content-Type: application/json
+
+{
+  "videoId":"d649f365-8eee-4598-8ae6-6b0f5b19680c",
+  "template": "Gere um resumo sucindo da transcrição do video informada a seguir : '''{transcription}'''adui",
+  "temperature": 0.5
+}
